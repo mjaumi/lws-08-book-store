@@ -7,7 +7,7 @@ import Loading from '../UI/Loading';
 
 const BookList = () => {
     // integration of rtk query hooks here
-    const { data: books, isLoading, isError, error } = useGetBooksQuery();
+    const { data: books, isLoading, isError } = useGetBooksQuery();
 
     // integration of react-redux hooks here
     const { filterBy, searchBy } = useSelector(state => state.filters);
@@ -34,25 +34,34 @@ const BookList = () => {
     }
 
     if (!isLoading && isError) {
-        content = <p>{error}</p>;
+        content = <p className='text-center text-red font-semibold'>Failed To Load The Books!</p>;
     }
 
     if (!isLoading && !isError && !books.length) {
-        content = <p>No Books Found!</p>;
+        content = <p className='text-center text-red font-semibold'>No Books Found!</p>;
     }
 
     if (!isLoading && !isError && books.length) {
-        content = (<div className='space-y-6 md:space-y-0 md:grid grid-cols-1 lg:grid-cols-3 gap-6'>
-            {
-                books
-                    .filter(filterBooksHandler)
-                    .filter(searchBooksHandler)
-                    .map(book => <BookItem
-                        key={book.id}
-                        book={book}
-                    />)
+
+        if (books.filter(filterBooksHandler).length) {
+            if (books.filter(searchBooksHandler).length) {
+                content = (<div className='space-y-6 md:space-y-0 md:grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                    {
+                        books
+                            .filter(filterBooksHandler)
+                            .filter(searchBooksHandler)
+                            .map(book => <BookItem
+                                key={book.id}
+                                book={book}
+                            />)
+                    }
+                </div>);
+            } else {
+                content = <p className='text-center text-red font-semibold'>No Such Books Found!</p>;
             }
-        </div>);
+        } else {
+            content = <p className='text-center text-red font-semibold'>No Featured Books Found!</p>;
+        }
     }
 
     // rendering the book list component here

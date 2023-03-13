@@ -16,6 +16,10 @@ code {
   justify-content: center;
 }
 
+.text-red{
+  color: #fc1515;
+}
+
 .Toastify__toast {
   width: 450px;
   text-align: center;

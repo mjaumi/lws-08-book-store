@@ -9,7 +9,7 @@ const EditBook = () => {
     const { bookId } = useParams();
 
     // integration of rtk query hooks here
-    const { data: book, isLoading, isError, error } = useGetBookQuery(bookId);
+    const { data: book, isLoading, isError } = useGetBookQuery(bookId);
 
     // deciding what to render here
     let content = null;
@@ -19,11 +19,11 @@ const EditBook = () => {
     }
 
     if (!isLoading && isError) {
-        content = <p>{error}</p>;
+        content = <p className='text-center text-red font-semibold'>Failed To Load The Book!</p>;
     }
 
     if (!isLoading && !isError && !book.id) {
-        content = <p>No Books Found!</p>;
+        content = <p className='text-center text-red font-semibold'>No Book Found!</p>;
     }
 
     if (!isLoading && !isError && book.id) {
