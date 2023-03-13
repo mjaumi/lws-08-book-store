@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useGetBooksQuery } from '../../features/api/apiSlice';
 import BookItem from '../BookItem/BookItem';
 import Filters from '../Filters/Filters';
@@ -7,6 +8,18 @@ import Loading from '../UI/Loading';
 const BookList = () => {
     // integration of rtk query hooks here
     const { data: books, isLoading, isError, error } = useGetBooksQuery();
+
+    // integration of react-redux hooks here
+    const { filterBy, searchBy } = useSelector(state => state.filters);
+
+    // this function is filtering the books
+    const filterBooks = book => {
+        if (filterBy === 'Featured') {
+            return book.featured;
+        } else {
+            return book;
+        }
+    }
 
     // deciding what to render here
     let content = null;
@@ -26,10 +39,12 @@ const BookList = () => {
     if (!isLoading && !isError && books.length) {
         content = (<div className='space-y-6 md:space-y-0 md:grid grid-cols-1 lg:grid-cols-3 gap-6'>
             {
-                books.map(book => <BookItem
-                    key={book.id}
-                    book={book}
-                />)
+                books
+                    .filter(filterBooks)
+                    .map(book => <BookItem
+                        key={book.id}
+                        book={book}
+                    />)
             }
         </div>);
     }
