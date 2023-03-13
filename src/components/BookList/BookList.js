@@ -12,13 +12,18 @@ const BookList = () => {
     // integration of react-redux hooks here
     const { filterBy, searchBy } = useSelector(state => state.filters);
 
-    // this function is filtering the books
-    const filterBooks = book => {
+    // handler function for filtering books
+    const filterBooksHandler = book => {
         if (filterBy === 'Featured') {
             return book.featured;
         } else {
             return book;
         }
+    }
+
+    // handler function for filtering books
+    const searchBooksHandler = book => {
+        return book?.name.toLowerCase().includes(searchBy.toLowerCase());
     }
 
     // deciding what to render here
@@ -40,7 +45,8 @@ const BookList = () => {
         content = (<div className='space-y-6 md:space-y-0 md:grid grid-cols-1 lg:grid-cols-3 gap-6'>
             {
                 books
-                    .filter(filterBooks)
+                    .filter(filterBooksHandler)
+                    .filter(searchBooksHandler)
                     .map(book => <BookItem
                         key={book.id}
                         book={book}

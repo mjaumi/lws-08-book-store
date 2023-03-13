@@ -15,3 +15,8 @@ code {
 .justify-center{
   justify-content: center;
 }
+
+.Toastify__toast {
+  width: 450px;
+  text-align: center;
+}

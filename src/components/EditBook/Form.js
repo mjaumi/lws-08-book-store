@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useEditBookMutation } from '../../features/api/apiSlice';
 
 const Form = ({ book }) => {
@@ -20,13 +21,15 @@ const Form = ({ book }) => {
     // integration of react-router-dom hook here
     const navigate = useNavigate();
 
+    // showing toast to user after editing the book
     useEffect(() => {
         if (isSuccess) {
+            toast.success('Book Edited Successfully!!!');
             navigate('/');
         }
 
         if (isError) {
-            console.log('An Error Happened');
+            toast.error('Failed To Edit The Book. Please Try Again Later.');
         }
     }, [isSuccess, navigate, isError]);
 

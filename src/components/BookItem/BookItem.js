@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useDeleteBookMutation } from '../../features/api/apiSlice';
 import FilledRatingStar from '../Rating/FilledRatingStar';
 import UnfilledRatingStar from '../Rating/UnfilledRatingStar';
@@ -9,10 +10,21 @@ const BookItem = ({ book }) => {
     const { id, name, author, thumbnail, price, rating, featured } = book || {};
 
     // integration of rtk query hooks here
-    const [deleteBook, { isLoading, isError, isSuccess }] = useDeleteBookMutation();
+    const [deleteBook, { isError, isSuccess }] = useDeleteBookMutation();
 
     // integration of react-router-dom hooks here
     const navigate = useNavigate();
+
+    // showing toast to user after deleting book
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success('Book Deleted Successfully!!!');
+        }
+
+        if (isError) {
+            toast.error('Failed To Delete Book. Please Try Again Later.');
+        }
+    }, [isSuccess, isError]);
 
     // handler function to delete book from the server
     const deleteBookHandler = (bookId) => {

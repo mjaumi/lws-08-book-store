@@ -4,6 +4,8 @@ import AddBook from './components/AddBook/AddBook';
 import BookList from './components/BookList/BookList';
 import EditBook from './components/EditBook/EditBook';
 import Layout from './Layout/Layout';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
           <Route path='/edit-book/:bookId' element={<EditBook />} />
         </Routes>
       </Layout>
+      <ToastContainer position='top-center' theme='colored' />
     </Router>
   );
 }

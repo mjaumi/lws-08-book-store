@@ -1,10 +1,20 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../../assets/images/logo.svg';
+import { searchBooks } from '../../features/Filters/FiltersSlice';
 
 const Navbar = () => {
+    // integration of react-redux hooks here
+    const dispatch = useDispatch();
+
     // integration of react-router-dom hooks here
     const location = useLocation();
+
+    // handler function to get search bar text and dispatch action
+    const searchBarHandler = e => {
+        dispatch(searchBooks(e.target.value));
+    }
 
     // rendering the navbar component here
     return (
@@ -29,7 +39,7 @@ const Navbar = () => {
                                 d='M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z'>
                             </path>
                         </svg>
-                        <input type='text' placeholder='Filter books...' className='search' id='lws-search' />
+                        <input onChange={searchBarHandler} type='text' placeholder='Filter books...' className='search' id='lws-search' />
                     </div>
                 </form>
             </div>
