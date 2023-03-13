@@ -74,7 +74,7 @@ const Form = () => {
             <div className='grid grid-cols-2 gap-8 pb-4'>
                 <div className='space-y-2'>
                     <label htmlFor='lws-price'>Price</label>
-                    <input onChange={e => setPrice(e.target.value)} value={price} required className='text-input' type='number' id='lws-price' name='price' />
+                    <input onChange={e => setPrice(e.target.value)} value={price} required className='text-input' step='any' type='number' id='lws-price' name='price' />
                 </div>
 
                 <div className='space-y-2'>

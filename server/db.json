@@ -13,9 +13,9 @@
       "name": "The Last Thing He Told Me: A Novel",
       "author": "Laura Dave",
       "thumbnail": "https://m.media-amazon.com/images/P/1501171348.01._SCLZZZZZZZ_SX500_.jpg",
-      "price": 13.99,
+      "price": 123.99,
       "rating": 4,
-      "featured": false,
+      "featured": true,
       "id": 2
     },
     {
